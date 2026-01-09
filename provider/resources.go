@@ -21,15 +21,13 @@ import (
 	// embed is used to store bridge-metadata.json in the compiled binary
 	_ "embed"
 
-	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
-	"github.com/rancher/terraform-provider-rancher2/rancher2"
-
 	"github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfbridge"
 	tks "github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfbridge/tokens"
 	shimv1 "github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfshim/sdk-v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/tokens"
 
 	"github.com/pulumi/pulumi-rancher2/provider/v11/pkg/version"
+	"github.com/pulumi/pulumi-rancher2/provider/v11/shim"
 )
 
 // all of the token components used below.
@@ -46,8 +44,8 @@ func makeResource(res string) tokens.Type {
 
 // Provider returns additional overlaid schema and metadata associated with the provider..
 func Provider() tfbridge.ProviderInfo {
-	// Instantiate the Terraform provider
-	p := shimv1.NewProvider(rancher2.Provider().(*schema.Provider))
+	// Instantiate the Terraform provider with our shim that adds extra_headers support
+	p := shimv1.NewProvider(shim.Provider())
 
 	// Create a Pulumi provider mapping
 	prov := tfbridge.ProviderInfo{
@@ -72,6 +70,11 @@ func Provider() tfbridge.ProviderInfo {
 				Default: &tfbridge.DefaultInfo{
 					EnvVars: []string{"RANCHER_INSECURE"},
 					Value:   false,
+				},
+			},
+			"extra_headers": {
+				Default: &tfbridge.DefaultInfo{
+					EnvVars: []string{"RANCHER_EXTRA_HEADERS"},
 				},
 			},
 		},

@@ -2,8 +2,6 @@ module github.com/pulumi/pulumi-rancher2/provider/v11
 
 go 1.24.7
 
-toolchain go1.24.10
-
 replace (
 	// tfinstall was removed from terraform-exec in v0.16.0.
 	//
