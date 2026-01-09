@@ -55,6 +55,7 @@ The following configuration points are available for the `rancher2` provider:
   the `RANCHER_SECRET_KEY` environment variable.
 - `rancher2:tokenKey` (Optional) - API token used to authenticate with the rancher server. It can also be sourced from
   the `RANCHER_TOKEN_KEY` environment variable.
+- `rancher2:extraHeaders` (Optional) - Extra HTTP headers to send with each Rancher API request.
 - `rancher2:caCerts` (Optional) - CA certificates used to sign rancher server tls certificates. Mandatory if self signed
   tls and insecure option false. It can also be sourced from the `RANCHER_CA_CERTS` environment variable.
 - `rancher2:bootstrap` (Optional) - Bootstrap rancher server. Default value is `false`. It can also be sourced from the

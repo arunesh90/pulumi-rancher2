@@ -206,6 +206,7 @@ The following configuration inputs are supported:
 * `accessKey` - (Optional/Sensitive) Rancher API access key to connect to rancher. It can also be sourced from the `RANCHER_ACCESS_KEY` environment variable.
 * `secretKey` - (Optional/Sensitive) Rancher API secret key to connect to rancher. It can also be sourced from the `RANCHER_SECRET_KEY` environment variable.
 * `tokenKey` - (Optional/Sensitive) Rancher API token key to connect to rancher. It can also be sourced from the `RANCHER_TOKEN_KEY` environment variable. Could be used instead `accessKey` and `secretKey`.
+* `extraHeaders` - (Optional) Extra HTTP headers to send with each Rancher API request.
 * `caCerts` - CA certificates used to sign Rancher server tls certificates. Mandatory if self signed tls and insecure option false. It can also be sourced from the `RANCHER_CA_CERTS` environment variable.
 * `insecure` - (Optional) Allow insecure connection to Rancher. Mandatory if self signed tls and not caCerts provided. It can also be sourced from the `RANCHER_INSECURE` environment variable.
 * `bootstrap` - (Optional) Enable bootstrap mode to manage `rancher2.Bootstrap` resource. It can also be sourced from the `RANCHER_BOOTSTRAP` environment variable. Default: `false`
