@@ -17,6 +17,8 @@ replace (
 	//	        github.com/hashicorp/terraform-exec/tfinstall: module github.com/hashicorp/terraform-exec@latest found (v0.20.0), but does not contain package github.com/hashicorp/terraform-exec/tfinstall
 	github.com/hashicorp/terraform-exec => github.com/hashicorp/terraform-exec v0.15.0
 	github.com/hashicorp/terraform-plugin-sdk/v2 => github.com/pulumi/terraform-plugin-sdk/v2 v2.0.0-20250923233607-7f1981c8674a
+	github.com/rancher/norman => ../third_party/norman
+	github.com/rancher/terraform-provider-rancher2 => ../third_party/terraform-provider-rancher2
 )
 
 // Replace block copied from upstream

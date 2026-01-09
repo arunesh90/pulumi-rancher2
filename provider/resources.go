@@ -68,6 +68,9 @@ func Provider() tfbridge.ProviderInfo {
 					Value:   false,
 				},
 			},
+			"extra_headers": {
+				Secret: tfbridge.True(),
+			},
 			"insecure": {
 				Default: &tfbridge.DefaultInfo{
 					EnvVars: []string{"RANCHER_INSECURE"},

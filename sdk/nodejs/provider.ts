@@ -38,6 +38,10 @@ export class Provider extends pulumi.ProviderResource {
      */
     declare public readonly caCerts: pulumi.Output<string | undefined>;
     /**
+     * Extra HTTP headers to send with each Rancher API request.
+     */
+    declare public readonly extraHeaders: pulumi.Output<{[key: string]: string} | undefined>;
+    /**
      * API secret used to authenticate with the rancher server
      */
     declare public readonly secretKey: pulumi.Output<string | undefined>;
@@ -65,6 +69,7 @@ export class Provider extends pulumi.ProviderResource {
             resourceInputs["apiUrl"] = args?.apiUrl;
             resourceInputs["bootstrap"] = pulumi.output((args?.bootstrap) ?? (utilities.getEnvBoolean("RANCHER_BOOTSTRAP") || false)).apply(JSON.stringify);
             resourceInputs["caCerts"] = args?.caCerts;
+            resourceInputs["extraHeaders"] = args?.extraHeaders ? pulumi.secret(args.extraHeaders) : undefined;
             resourceInputs["insecure"] = pulumi.output((args?.insecure) ?? (utilities.getEnvBoolean("RANCHER_INSECURE") || false)).apply(JSON.stringify);
             resourceInputs["retries"] = pulumi.output(args?.retries).apply(JSON.stringify);
             resourceInputs["secretKey"] = args?.secretKey ? pulumi.secret(args.secretKey) : undefined;
@@ -72,7 +77,7 @@ export class Provider extends pulumi.ProviderResource {
             resourceInputs["tokenKey"] = args?.tokenKey ? pulumi.secret(args.tokenKey) : undefined;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
-        const secretOpts = { additionalSecretOutputs: ["accessKey", "secretKey", "tokenKey"] };
+        const secretOpts = { additionalSecretOutputs: ["accessKey", "extraHeaders", "secretKey", "tokenKey"] };
         opts = pulumi.mergeOptions(opts, secretOpts);
         super(Provider.__pulumiType, name, resourceInputs, opts);
     }
@@ -107,6 +112,10 @@ export interface ProviderArgs {
      * CA certificates used to sign rancher server tls certificates. Mandatory if self signed tls and insecure option false
      */
     caCerts?: pulumi.Input<string>;
+    /**
+     * Extra HTTP headers to send with each Rancher API request.
+     */
+    extraHeaders?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
     /**
      * Allow insecure connections to Rancher. Mandatory if self signed tls and not caCerts provided
      */
